@@ -1,32 +1,27 @@
-﻿using System.Globalization;
-
-class Program
+﻿using System;
+using System.Globalization;
+using System.Linq;
+partial class Program
 {
-    static void Main()
+    static void Main(string[] args)
     {
-        Console.Write("Digite o nome do funcionário: ");
-        string nome = Console.ReadLine()!;
-        if (String.IsNullOrEmpty(nome) || double.TryParse(nome, out _) || nome.Any(char.IsDigit))
+        double conta;
+        int minutos;
+
+        conta = 50.0;
+        Console.Write("Digite a quantidade de minutos de uso do telefone: ");
+        bool sucess = int.TryParse(Console.ReadLine(), CultureInfo.InvariantCulture, out minutos);
+
+        if (!sucess || minutos < 0)
         {
-            Console.WriteLine("O nome não pode estar vazio ou ser um número.");
+            Console.WriteLine("Valor inválido. Favor verificar se há somente números inteiros positivos na entrada de dados.");
             return;
         }
-
-        Console.Write("Digite o salário fixo do funcionário: ");
-        bool sucesso2 = double.TryParse(Console.ReadLine(), CultureInfo.InvariantCulture, out double salario);
-
-        Console.Write("Quanto que ele vendeu? ");
-        bool sucesso3 = double.TryParse(Console.ReadLine(), CultureInfo.InvariantCulture, out double vendas);
-
-        if (sucesso2 && sucesso3)
+        else if (minutos >100)
         {
-            Console.WriteLine($"O funcionário {nome} tem um salário fixo de R${salario:F2}. Mas, tendo em vista que ele vendeu, em Reais, R${vendas:F2}, e que o funcionário tem 15% de comissão das vendas, seu salário final será de R${salario+vendas * 0.15:F2}.");
+            conta = conta + (minutos - 100) * 2.0;
         }
-        else
-        {
-            Console.WriteLine("Verifique se os dados do salário e das vendas estão válidos.");
-        }
+        Console.WriteLine($"O valor a pagar será de R${conta.ToString("F2", CultureInfo.InvariantCulture)}.");
         Console.ReadLine();
     }
 }
-
