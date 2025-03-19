@@ -21,7 +21,7 @@ class Program
         else
         {
             d = Math.Sqrt(Math.Pow(x2 - x1, 2) + Math.Pow(y2 - y1, 2));
-            Console.WriteLine($"A distância entre os pontos ({x1.ToString("F2",CultureInfo.InvariantCulture)};{y1.ToString("F2", CultureInfo.InvariantCulture)}) e");
+            Console.Write($"A distância entre os pontos ({x1.ToString("F2",CultureInfo.InvariantCulture)};{y1.ToString("F2", CultureInfo.InvariantCulture)}) e");
             Console.Write($"({x2.ToString("F2", CultureInfo.InvariantCulture)};{y2.ToString("F2", CultureInfo.InvariantCulture)}) é de {d.ToString("F2", CultureInfo.InvariantCulture)}");
         }
             Console.ReadLine();
