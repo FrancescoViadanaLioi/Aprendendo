@@ -4,20 +4,32 @@ class Program
 {
     static void Main()
     {
-        int N;
-        Console.Write("Escreva o número de segundos: ");
-        bool sucess = int.TryParse(Console.ReadLine(), out N);
+        int d;
+        Console.Write("Digite o dinheiro possuído: ");
+        bool sucess = int.TryParse(Console.ReadLine(), out d);
 
-        if (!sucess || N < 0)
+        if (sucess && d > 0)
         {
-            Console.WriteLine("Dados inválidos, favor redigitar um número inteiro positivo.");
+            int cem = d / 100;
+            int cin = (d % 100) /50;
+            int vin = ((d % 100) % 50) / 20;
+            int dez = (((d % 100) % 50) % 20) / 10;
+            int cinc = ((((d % 100) % 50) % 20) % 10) / 5;
+            int dois = (((((d % 100) % 50) % 20) % 10) % 5) / 2;
+            int um = ((((((d % 100) % 50) % 20) % 10) % 5) % 2) / 1;
+
+            Console.WriteLine($"Com R${d} você pode ter: ");
+            Console.WriteLine($"{cem} notas de R$100,00");
+            Console.WriteLine($"{cin} notas de R$50,00");
+            Console.WriteLine($"{vin} notas de R$20,00");
+            Console.WriteLine($"{dez} notas de R$10,00");
+            Console.WriteLine($"{cinc} notas de R$5,00");
+            Console.WriteLine($"{dois} notas de R$2,00");
+            Console.WriteLine($"{um} notas de R$1,00");
         }
         else
         {
-            int horas = N / 3600;
-            int minutos = (N % 3600) / 60;
-            int segundos = (N % 3600) % 60;
-            Console.WriteLine($"Em {N} segundos, há {horas} horas, {minutos} minutos e {segundos} segundos. ");
+            Console.WriteLine("Valor inválido. Verifique se você forneceu um número inteiro positivo.");
         }
         Console.ReadLine();
     }
