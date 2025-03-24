@@ -1,35 +1,23 @@
-﻿using System.Globalization;
-
-class Program
+﻿class Program
 {
-    static void Main()
+    public static void Main()
     {
-        int d;
-        Console.Write("Digite o dinheiro possuído: ");
-        bool sucess = int.TryParse(Console.ReadLine(), out d);
+        Console.Write("Digite sua idade em dias: ");
+        bool sucess1 = int.TryParse(Console.ReadLine(), out int dias);
 
-        if (sucess && d > 0)
+        if (!sucess1 || dias <= 0)
         {
-            int cem = d / 100;
-            int cin = (d % 100) /50;
-            int vin = ((d % 100) % 50) / 20;
-            int dez = (((d % 100) % 50) % 20) / 10;
-            int cinc = ((((d % 100) % 50) % 20) % 10) / 5;
-            int dois = (((((d % 100) % 50) % 20) % 10) % 5) / 2;
-            int um = ((((((d % 100) % 50) % 20) % 10) % 5) % 2) / 1;
-
-            Console.WriteLine($"Com R${d} você pode ter: ");
-            Console.WriteLine($"{cem} notas de R$100,00");
-            Console.WriteLine($"{cin} notas de R$50,00");
-            Console.WriteLine($"{vin} notas de R$20,00");
-            Console.WriteLine($"{dez} notas de R$10,00");
-            Console.WriteLine($"{cinc} notas de R$5,00");
-            Console.WriteLine($"{dois} notas de R$2,00");
-            Console.WriteLine($"{um} notas de R$1,00");
+            Console.WriteLine("Favor, verificar se somente há um número inteiro positivo.");
+            return;
         }
         else
         {
-            Console.WriteLine("Valor inválido. Verifique se você forneceu um número inteiro positivo.");
+            int anos = dias / 365;
+            int meses = (dias % 365) / 30;
+            int dia = (dias % 365) % 30;
+
+            Console.WriteLine($"Uma pessoa com {dias} tem {anos} ano(s), {meses} mês(es) e {dia} dia(s)");
+
         }
         Console.ReadLine();
     }
