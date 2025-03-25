@@ -1,36 +1,80 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 
-class Program
+namespace PrimeiroProjeto
 {
-    static void Main()
+    class Program
     {
-        int d;
-        Console.Write("Digite o dinheiro possuído: ");
-        bool sucess = int.TryParse(Console.ReadLine(), out d);
-
-        if (sucess && d > 0)
+        static void Main(string[] args)
         {
-            int cem = d / 100;
-            int cin = (d % 100) /50;
-            int vin = ((d % 100) % 50) / 20;
-            int dez = (((d % 100) % 50) % 20) / 10;
-            int cinc = ((((d % 100) % 50) % 20) % 10) / 5;
-            int dois = (((((d % 100) % 50) % 20) % 10) % 5) / 2;
-            int um = ((((((d % 100) % 50) % 20) % 10) % 5) % 2) / 1;
+            double N;
+            int quociente, resto, nota, moeda;
 
-            Console.WriteLine($"Com R${d} você pode ter: ");
-            Console.WriteLine($"{cem} notas de R$100,00");
-            Console.WriteLine($"{cin} notas de R$50,00");
-            Console.WriteLine($"{vin} notas de R$20,00");
-            Console.WriteLine($"{dez} notas de R$10,00");
-            Console.WriteLine($"{cinc} notas de R$5,00");
-            Console.WriteLine($"{dois} notas de R$2,00");
-            Console.WriteLine($"{um} notas de R$1,00");
+            Console.Write("Digite a quantidade de dinheiro em posse: ");
+            N = double.Parse(Console.ReadLine()!, CultureInfo.InvariantCulture);
+
+            resto = (int)(N * 100.0 + 0.5);
+
+            Console.WriteLine("NOTAS:");
+
+            nota = 100;
+            quociente = resto / (nota * 100);
+            Console.WriteLine(quociente + " nota(s) de R$ " + nota + ".00");
+            resto = resto % (nota * 100);
+
+            nota = 50;
+            quociente = resto / (nota * 100);
+            Console.WriteLine(quociente + " nota(s) de R$ " + nota + ".00");
+            resto = resto % (nota * 100);
+
+            nota = 20;
+            quociente = resto / (nota * 100);
+            Console.WriteLine(quociente + " nota(s) de R$ " + nota + ".00");
+            resto = resto % (nota * 100);
+
+            nota = 10;
+            quociente = resto / (nota * 100);
+            Console.WriteLine(quociente + " nota(s) de R$ " + nota + ".00");
+            resto = resto % (nota * 100);
+
+            nota = 5;
+            quociente = resto / (nota * 100);
+            Console.WriteLine(quociente + " nota(s) de R$ " + nota + ".00");
+            resto = resto % (nota * 100);
+
+            nota = 2;
+            quociente = resto / (nota * 100);
+            Console.WriteLine(quociente + " nota(s) de R$ " + nota + ".00");
+            resto = resto % (nota * 100);
+
+            Console.WriteLine("MOEDAS:");
+
+            moeda = 100;
+            quociente = resto / moeda;
+            Console.WriteLine(quociente + " moeda(s) de R$ 1.00");
+            resto = resto % moeda;
+
+            moeda = 50;
+            quociente = resto / moeda;
+            Console.WriteLine(quociente + " moeda(s) de R$ 0.50");
+            resto = resto % moeda;
+
+            moeda = 25;
+            quociente = resto / moeda;
+            Console.WriteLine(quociente + " moeda(s) de R$ 0.25");
+            resto = resto % moeda;
+
+            moeda = 10;
+            quociente = resto / moeda;
+            Console.WriteLine(quociente + " moeda(s) de R$ 0.10");
+            resto = resto % moeda;
+
+            moeda = 5;
+            quociente = resto / moeda;
+            Console.WriteLine(quociente + " moeda(s) de R$ 0.05");
+            resto = resto % moeda;
+
+            Console.WriteLine(resto + " moeda(s) de R$ 0.01");
         }
-        else
-        {
-            Console.WriteLine("Valor inválido. Verifique se você forneceu um número inteiro positivo.");
-        }
-        Console.ReadLine();
     }
 }
