@@ -1,24 +1,57 @@
 ﻿using System;
 using System.Globalization;
 
-class Program
+partial class Program
 {
     static void Main()
     {
-       Console.Write("Qual é o raio da esfera? ");
-       bool sucesso1 = double.TryParse(Console.ReadLine(), CultureInfo.InvariantCulture, out double raio);
+        int D1 = 0, H1 = 0, M1 = 0, S1 = 0, D2 = 0, H2 = 0, M2 = 0, S2 = 0, DF = 0, HF = 0, MF = 0, SF = 0,inicio, fim, duracao, resto;
 
-        if(!sucesso1 || raio<=0)
+        Console.Write("Digite a data, hora, minuto e segundo de início do evento(separados por espaços): ");
+        string[] v = Console.ReadLine()!.Split(' ');
+
+        if (!int.TryParse(v[0], out D1) || D1<=0 ||
+            !int.TryParse(v[1], out H1) || H1<=0 || H1 >=24 ||
+            !int.TryParse(v[2], out M1) || M1<=0 || M1 >=60 ||
+            !int.TryParse(v[3], out S1) || S1<=0 || S1 >=60 ||
+            v.Length != 4)
         {
-            Console.WriteLine("Valor inválido. Por favor, inserir um número maior que zero.");
-            return;
+            Console.WriteLine("Digitação inválida, favor verificar se há somente números inteiros positivos.");
         }
         else
         {
-            double vol = (4.0/3.0) * Math.PI * Math.Pow(raio, 3);
-            Console.WriteLine($"O volume de uma esfera de raio {raio.ToString("F2", CultureInfo.InvariantCulture)} é de {vol.ToString("F2", CultureInfo.InvariantCulture)}. ");
+            Console.Write("Digite a data, hora, minuto e segundo de término do evento(separados por espaços): ");
+            v = Console.ReadLine()!.Split(' ');
+
+            if (!int.TryParse(v[0], out D2) || D2 <=0 ||
+                !int.TryParse(v[1], out H2) || H2 <=0 || H2 >=24 ||
+                !int.TryParse(v[2], out M2) || M2 <=0 || M2 >=60 ||
+                !int.TryParse(v[3], out S2) || S2 <=0 || S2 >=60 ||
+                v.Length !=4)
+            {
+                Console.WriteLine("Digitação inválida, favor verificar se há somente números inteiros positivos.");
+            }
+            else
+            {
+                inicio = (D1 - 1) * 24 * 60 * 60 + (H1 * 60 * 60) + (M1 * 60) + S1;
+                fim = (D2 - 1) * (24 * 60 * 60) + (H2 * 60 * 60) + (M2 * 60) + S2;
+
+                duracao = fim - inicio;
+
+                DF = duracao / (24 * 60 * 60);
+                resto = duracao % (24 * 60 * 60);
+                HF = resto / (60 * 60);
+                resto = resto % (60 * 60);
+                MF = resto / 60;
+                SF = resto % 60;
+
+                Console.WriteLine($"{DF} dia(s)");
+                Console.WriteLine($"{HF} hora(s)");
+                Console.WriteLine($"{MF} minuto(s)");
+                Console.WriteLine($"{SF} segundo(s)");
+            }
         }
+
         Console.ReadLine();
     }
-    }
-
+}
