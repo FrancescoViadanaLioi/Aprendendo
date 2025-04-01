@@ -1,24 +1,38 @@
-﻿using System;
+using System;
 using System.Globalization;
-
-class Program
+using System.Linq;
+partial class Program
 {
     static void Main()
     {
-       Console.Write("Qual é o raio da esfera? ");
-       bool sucesso1 = double.TryParse(Console.ReadLine(), CultureInfo.InvariantCulture, out double raio);
+        int x, y, z;
 
-        if(!sucesso1 || raio<=0)
+        Console.WriteLine("Digite três números inteiros separados por espaço: ");
+        String[] vet = Console.ReadLine()!.Split(' ');
+
+        if (vet.Length == 3 && vet.All(item => int.TryParse(item, out _)))
         {
-            Console.WriteLine("Valor inválido. Por favor, inserir um número maior que zero.");
-            return;
+            x = int.Parse(vet[0]);
+            y = int.Parse(vet[1]);
+            z = int.Parse(vet[2]);
+
+            if (x < y && x < z)
+            {
+                Console.WriteLine($"O menor valor é {x}.");
+            }
+            else if (y < x && y < z)
+            {
+                Console.WriteLine($"O menor valor é {y}.");
+            }
+            else
+            {
+                Console.WriteLine($"O menor valor é {z}.");
+            }
         }
         else
         {
-            double vol = (4.0/3.0) * Math.PI * Math.Pow(raio, 3);
-            Console.WriteLine($"O volume de uma esfera de raio {raio.ToString("F2", CultureInfo.InvariantCulture)} é de {vol.ToString("F2", CultureInfo.InvariantCulture)}. ");
+            Console.WriteLine("Erro: digite três números inteiros separados por espaço.");
         }
         Console.ReadLine();
     }
-    }
-
+}
