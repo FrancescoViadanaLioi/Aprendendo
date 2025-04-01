@@ -5,20 +5,38 @@ class Program
 {
     static void Main()
     {
-       Console.Write("Qual é o raio da esfera? ");
-       bool sucesso1 = double.TryParse(Console.ReadLine(), CultureInfo.InvariantCulture, out double raio);
+        double a, b, c, R1, R2, delta;
 
-        if(!sucesso1 || raio<=0)
+        Console.Write("Digite os valores de a, b e c para serem usados na fórmula de Bhaskara (separados por espaço): ");
+        string[] vet = Console.ReadLine()!.Split(' ');
+
+        if (vet.Length != 3)
         {
-            Console.WriteLine("Valor inválido. Por favor, inserir um número maior que zero.");
+            Console.WriteLine("Entrada inválida. Digite os valores de a, b e c separados por espaço ou verifique se há somente 3 itens.");
             return;
         }
+
         else
         {
-            double vol = (4.0/3.0) * Math.PI * Math.Pow(raio, 3);
-            Console.WriteLine($"O volume de uma esfera de raio {raio.ToString("F2", CultureInfo.InvariantCulture)} é de {vol.ToString("F2", CultureInfo.InvariantCulture)}. ");
+            a = double.Parse(vet[0], CultureInfo.InvariantCulture);
+            b = double.Parse(vet[1], CultureInfo.InvariantCulture);
+            c = double.Parse(vet[2], CultureInfo.InvariantCulture);
+            delta = Math.Pow(b, 2) - 4 * a * c;
+
+            if (a == 0 || delta <= 0)
+            {
+                Console.WriteLine("Impossível calcular. O delta não deve ser menor do que zero e/ou o a não deve ser igual a zero.");
+                return;
+
+            }
+            else if (delta > 0)
+            {
+                R1 = (-b + Math.Sqrt(delta)) / (2 * a);
+                R2 = (-b - Math.Sqrt(delta)) / (2 * a);
+
+                Console.WriteLine($"Para a = {a.ToString(CultureInfo.InvariantCulture)}, b = {b.ToString(CultureInfo.InvariantCulture)} e c = {c.ToString(CultureInfo.InvariantCulture)}, as raízes são:\n R1 = {R1.ToString("F3", CultureInfo.InvariantCulture)} e R2 = {R2.ToString("F3", CultureInfo.InvariantCulture)}");
+            }
         }
         Console.ReadLine();
     }
-    }
-
+}
