@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 partial class Program
 {
     static void Main(string[] args)
