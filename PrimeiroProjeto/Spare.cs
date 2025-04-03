@@ -1,6 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
+﻿using System.Globalization;
 partial class Program
 {
     static void Main(string[] args)
@@ -17,7 +15,7 @@ partial class Program
             Console.WriteLine("Valor inválido. Favor verificar se há somente números inteiros positivos na entrada de dados.");
             return;
         }
-        else if (minutos >100)
+        else if (minutos > 100)
         {
             conta = conta + (minutos - 100) * 2.0;
         }
