@@ -1,28 +1,25 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
+using System.Linq;
 
 class Program
 {
     static void Main()
     {
-        //Entrada de dados sobre o nome do usuário e verificação da sua validez.
-        Console.Write("Digite o nome do funcionário: ");
-        string nome = Console.ReadLine()!;
-        if (String.IsNullOrEmpty(nome) || double.TryParse(nome, out _) || nome.Any(char.IsDigit))
+        string nome = ObterNomeFuncionario();
+        if (string.IsNullOrEmpty(nome))
         {
             Console.WriteLine("O nome não pode estar vazio ou ser um número.");
             return;
         }
-        //Entrada de dados sobre o salário fixo e as vendas do funcionário.
-        Console.Write("Digite o salário fixo do funcionário: ");
-        bool sucesso2 = double.TryParse(Console.ReadLine(), CultureInfo.InvariantCulture, out double salario);
 
-        Console.Write("Quanto que ele vendeu? ");
-        bool sucesso3 = double.TryParse(Console.ReadLine(), CultureInfo.InvariantCulture, out double vendas);
+        double salario = ObterValor("Digite o salário fixo do funcionário: ");
+        double vendas = ObterValor("Quanto que ele vendeu? ");
 
-        //Verificação da validez dos dados.
-        if (sucesso2 && sucesso3)
+        if (salario >= 0 && vendas >= 0)
         {
-            Console.WriteLine($"O funcionário {nome} tem um salário fixo de R${salario:F2}. Mas, tendo em vista que ele vendeu, em Reais, R${vendas:F2}, e que o funcionário tem 15% de comissão das vendas, seu salário final será de R${salario+vendas * 0.15:F2}.");
+            double salarioFinal = CalcularSalarioFinal(salario, vendas);
+            Console.WriteLine($"O funcionário {nome} tem um salário fixo de R${salario:F2}. Mas, tendo em vista que ele vendeu, em Reais, R${vendas:F2}, e que o funcionário tem 15% de comissão das vendas, seu salário final será de R${salarioFinal:F2}.");
         }
         else
         {
@@ -30,5 +27,10 @@ class Program
         }
         Console.ReadLine();
     }
-}
 
+    static string ObterNomeFuncionario()
+    {
+        Console.Write("Digite o nome do funcionário: ");
+        string nome = Console.ReadLine()!;
+        if (string.IsNullOrEmpty(nome) || double.TryParse(nome, out _) || nome.Any(char.IsDigit))
+        {
