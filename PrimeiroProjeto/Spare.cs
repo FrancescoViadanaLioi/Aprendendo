@@ -1,36 +1,47 @@
-﻿using System;
+using System;
 using System.Globalization;
-using System.Linq;
 
 class Program
 {
     static void Main()
     {
-        string nome = ObterNomeFuncionario();
-        if (string.IsNullOrEmpty(nome))
+        double DD, T, VC = 0, VT = 0;
+        char escolha = 'S';
+
+        while (escolha == 'S' || escolha == 's')
         {
-            Console.WriteLine("O nome não pode estar vazio ou ser um número.");
+            Console.WriteLine("Digite o valor da compra: ");
+            if (!double.TryParse(Console.ReadLine(), CultureInfo.InvariantCulture, out VC) || VC < 0)
+            {
+                Console.WriteLine("Valor inválido. Tente novamente.");
+                continue;
+            }
+            else{
+            VT += VC;
+
+            Console.WriteLine("Você continuará comprando (para sim, digite S)? ");
+            escolha = Console.ReadLine()![0];
+            }
+        }
+
+        Console.Write("Quanto foi dado ao caixa? R$");
+        bool sucess = double.TryParse(Console.ReadLine(), CultureInfo.InvariantCulture, out DD);
+        if (!sucess || DD < 0)
+        {
+            Console.WriteLine("Valor inválido. Tente novamente.");
             return;
         }
 
-        double salario = ObterValor("Digite o salário fixo do funcionário: ");
-        double vendas = ObterValor("Quanto que ele vendeu? ");
+        T = DD - VT;
 
-        if (salario >= 0 && vendas >= 0)
+        if (T >= 0)
         {
-            double salarioFinal = CalcularSalarioFinal(salario, vendas);
-            Console.WriteLine($"O funcionário {nome} tem um salário fixo de R${salario:F2}. Mas, tendo em vista que ele vendeu, em Reais, R${vendas:F2}, e que o funcionário tem 15% de comissão das vendas, seu salário final será de R${salarioFinal:F2}.");
+            Console.WriteLine($"O valor da compra foi de R${VT.ToString("F2", CultureInfo.InvariantCulture)} e seu troco foi de R${T.ToString("F2", CultureInfo.InvariantCulture)}");
         }
         else
         {
-            Console.WriteLine("Verifique se os dados do salário e das vendas estão válidos.");
+            T = T * -1;
+            Console.WriteLine($"O valor da compra foi R${VT.ToString("F2", CultureInfo.InvariantCulture)} e você deve R${T.ToString("F2", CultureInfo.InvariantCulture)}");
         }
-        Console.ReadLine();
     }
-
-    static string ObterNomeFuncionario()
-    {
-        Console.Write("Digite o nome do funcionário: ");
-        string nome = Console.ReadLine()!;
-        if (string.IsNullOrEmpty(nome) || double.TryParse(nome, out _) || nome.Any(char.IsDigit))
-        {
+}
