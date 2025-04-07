@@ -1,32 +1,43 @@
-﻿using System.Globalization;
+﻿using System.ComponentModel.Design;
+using System.Globalization;
+using System.Reflection.Metadata.Ecma335;
 
 class Program
 {
     static void Main()
     {
-        Console.Write("Digite o nome do funcionário: ");
-        string nome = Console.ReadLine()!;
-        if (String.IsNullOrEmpty(nome) || double.TryParse(nome, out _) || nome.Any(char.IsDigit))
+        int n1, n2;
+
+        Console.Write("Digite dois números inteiros separados por espaço: ");
+        string[] vet = Console.ReadLine()!.Split(' ');
+
+        if (vet.Length != 2)
         {
-            Console.WriteLine("O nome não pode estar vazio ou ser um número.");
+            Console.WriteLine("Favor digitar somente dois números inteiros.");
             return;
-        }
-
-        Console.Write("Digite o salário fixo do funcionário: ");
-        bool sucesso2 = double.TryParse(Console.ReadLine(), CultureInfo.InvariantCulture, out double salario);
-
-        Console.Write("Quanto que ele vendeu? ");
-        bool sucesso3 = double.TryParse(Console.ReadLine(), CultureInfo.InvariantCulture, out double vendas);
-
-        if (sucesso2 && sucesso3)
-        {
-            Console.WriteLine($"O funcionário {nome} tem um salário fixo de R${salario:F2}. Mas, tendo em vista que ele vendeu, em Reais, R${vendas:F2}, e que o funcionário tem 15% de comissão das vendas, seu salário final será de R${salario+vendas * 0.15:F2}.");
         }
         else
         {
-            Console.WriteLine("Verifique se os dados do salário e das vendas estão válidos.");
+            bool sucesso1 = int.TryParse(vet[0], out n1);
+            bool sucesso2 = int.TryParse(vet[1], out n2);
+
+            if (sucesso1 && sucesso2)
+            {
+                if (n1 % n2 == 0 || n2 % n1 == 0)
+                {
+                    Console.WriteLine($"{n1} e {n2} são múltiplos.");
+                }
+                else
+                {
+                    Console.WriteLine($"{n1} e {n2} não são múltiplos.");
+                }
+            }
+            else if (!sucesso1 || !sucesso2)
+            {
+                Console.WriteLine("Válores inválidos.");
+                return;
+            }
         }
         Console.ReadLine();
     }
 }
-
