@@ -5,36 +5,64 @@ class Program
 {
     public static void Main()
     {
-        float NI;
-        string intervalo;
+        float n1, n2, n3, n4, media;
 
-        Console.Write("Digite um número: ");
-        bool sucesso = float.TryParse(Console.ReadLine(), CultureInfo.InvariantCulture, out NI);
+        Console.Write("Digite as 4 notas separadas por espaço (use ponto como separador decimal): ");
+        string[] vet = Console.ReadLine()!.Split(' ');
 
-        if (!sucesso)
+        if (vet.Length != 4)
         {
-            Console.WriteLine("Valor inválido");
+            Console.WriteLine("ERRO! Digite somente 4 números positivos separados por espaço.");
             return;
         }
-        else if (NI >= 0.00f && NI <= 25.00f)
+
+        bool sucesso1 = float.TryParse(vet[0], CultureInfo.InvariantCulture, out n1);
+        bool sucesso2 = float.TryParse(vet[1], CultureInfo.InvariantCulture, out n2);
+        bool sucesso3 = float.TryParse(vet[2], CultureInfo.InvariantCulture, out n3);
+        bool sucesso4 = float.TryParse(vet[3], CultureInfo.InvariantCulture, out n4);
+
+        if (!sucesso1 || !sucesso2 || !sucesso3 || !sucesso4)
         {
-            intervalo = "está no intervalo [0;25]";
+            Console.WriteLine("Dados inválidos, favor redigitar.");
+            return;
         }
-        else if (NI > 25.00f && NI <= 50.00f)
+
+        media = ((2 * n1) + (3 * n2) + (4 * n3) + (1 * n4)) / (2 + 3 + 4 + 1);
+
+        Console.WriteLine($"Média: {media.ToString("F2", CultureInfo.InvariantCulture)}");
+
+        if (media >= 7.0f)
         {
-            intervalo = "está no intervalo ]25;50]";
+            Console.WriteLine("Você foi APROVADO.");
         }
-        else if (NI > 50.00f && NI <= 100.00f)
+        else if (media < 5.0f)
         {
-            intervalo = "está no intervalo ]50;100]";
+            Console.WriteLine("Você foi REPROVADO.");
         }
         else
         {
-            intervalo = "está fora do intervalo";
+            Console.Write("Digite a nota do exame extra: ");
+            bool sucesso5 = float.TryParse(Console.ReadLine(), CultureInfo.InvariantCulture, out float ne);
+
+            if (!sucesso5)
+            {
+                Console.WriteLine("Nota inválida.");
+                return;
+            }
+
+            media = (media + ne) / 2;
+            Console.WriteLine($"Nova média: {media.ToString("F2", CultureInfo.InvariantCulture)}");
+
+            if (media >= 5.0f)
+            {
+                Console.WriteLine("Você foi APROVADO após o exame.");
+            }
+            else
+            {
+                Console.WriteLine("Você foi REPROVADO após o exame.");
+            }
         }
 
-            Console.WriteLine($"O número {NI.ToString(CultureInfo.InvariantCulture)} {intervalo}.");
-            Console.ReadLine();
+        Console.ReadLine();
     }
 }
-
