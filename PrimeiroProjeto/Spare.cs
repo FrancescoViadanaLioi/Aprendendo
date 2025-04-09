@@ -4,29 +4,35 @@ class Program
 {
     static void Main()
     {
-        Console.Write("Digite o nome do funcionário: ");
+        Console.Write("Digite o seu nome: ");
         string nome = Console.ReadLine()!;
-        if (String.IsNullOrEmpty(nome) || double.TryParse(nome, out _) || nome.Any(char.IsDigit))
+
+        if (string.IsNullOrWhiteSpace(nome) || double.TryParse(nome, out _) || nome.Any(char.IsDigit))
         {
-            Console.WriteLine("O nome não pode estar vazio ou ser um número.");
+            Console.WriteLine("Nome inválido, tente novamente.");
             return;
         }
 
-        Console.Write("Digite o salário fixo do funcionário: ");
-        bool sucesso2 = double.TryParse(Console.ReadLine(), CultureInfo.InvariantCulture, out double salario);
-
-        Console.Write("Quanto que ele vendeu? ");
-        bool sucesso3 = double.TryParse(Console.ReadLine(), CultureInfo.InvariantCulture, out double vendas);
-
-        if (sucesso2 && sucesso3)
+        Console.Write("Quantos anos você tem? ");
+        if (!int.TryParse(Console.ReadLine(), out int idade) || idade < 10 || idade > 120)
         {
-            Console.WriteLine($"O funcionário {nome} tem um salário fixo de R${salario:F2}. Mas, tendo em vista que ele vendeu, em Reais, R${vendas:F2}, e que o funcionário tem 15% de comissão das vendas, seu salário final será de R${salario+vendas * 0.15:F2}.");
+            Console.WriteLine("ACESSO NEGADO! Verifique se a idade inserida é válida ou se está entre 10 a 120 anos.");
+            return;
         }
-        else
+
+        Console.Write("Digite a altura e peso separados por espaço: ");
+        string[] vet = Console.ReadLine()!.Split(' ');
+
+        if (vet.Length != 2 ||
+            !double.TryParse(vet[0], CultureInfo.InvariantCulture, out double altura) ||
+            !int.TryParse(vet[1], CultureInfo.InvariantCulture, out int peso) ||
+            altura < 1.00 || altura >= 2.50 || peso <= 0 || peso >= 300)
         {
-            Console.WriteLine("Verifique se os dados do salário e das vendas estão válidos.");
+            Console.WriteLine("Favor inserir dados válidos.");
+            return;
         }
+
+        Console.WriteLine($"Olá, {nome}, você tem {idade} anos, tem {altura.ToString("F2", CultureInfo.InvariantCulture)} e pesa {peso}KG.");
         Console.ReadLine();
     }
 }
-
